@@ -1,101 +1,137 @@
-import Image from "next/image";
+// page.tsx
+"use client";
 
-export default function Home() {
+import styles from './page.module.css';
+
+// Inside the component, use `styles` for class names:
+<nav className={styles.navbar}>
+  {/* Navbar content */}
+</nav>
+
+
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+
+export default function LandingPage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div>
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="logo">
+          <h1 style={{fontSize: 50}}>OpenBnB</h1>
+          <Image src="/Images/logo.png" alt="Logo" width={70} height={70} style={{marginLeft: 1 + 'em'}}/>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="nav-buttons">
+          <a href="#section1">About</a>
+          <a href="#section2">Contact</a>
+          <Link href="/signup"><button className="signup-button">Sign Up / Login</button></Link>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <header className="hero">
+        <div className="hero-text">
+          <h1 style={{marginLeft: 7.25 + 'em'}}>OpenBnB</h1>
+          <p style={{marginLeft: 15 + 'em'}}>Homes for shelter in times of need</p>
+          <div className="hero-buttons">
+            <Link href="/about" style={{marginLeft: 18 + 'em'}}><button>I'm a host</button></Link>
+            <Link href="/contact" style={{marginLeft: 0 + 'em'}}><button>I'm an evacuee</button></Link>
+          </div>
+        </div>
+        <div className="hero-image">
+        <Image src="/Images/landingMainImage.png" alt="Hero Image" width={600} height={400} style={{marginRight: 10 + 'em'}} />
+        </div>
+      </header>
+
+      {/* Scrollable Sections */}
+      <section id="section1" className="section">
+        <h2>About</h2>
+        <p style={{marginLeft: 15 + 'em', marginRight: 15+'em'}}>Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        Over ___% of evacuees from disasters don't have a place to stay
+        </p>
+      </section>
+
+      <section id="section2" className="section">
+        <h2>Contact</h2>
+        <p>Questions? You can contact us at ______</p>
+      </section>
+
+      <style jsx>{`
+        /* Styles */
+        body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+        }
+        .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 2rem;
+          background-color: #333;
+          color: white;
+        }
+        .logo {
+          display: flex;
+          align-items: center;
+        }
+        .nav-buttons a, .signup-button {
+          margin-left: 1rem;
+          color: white;
+          text-decoration: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+        .signup-button {
+          border: 1px solid white;
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+        }
+        .hero {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 3rem 2rem;
+          background-color: #f0f0f0;
+        }
+        .hero-text h1 {
+          font-size: 2.5rem;
+          margin: 0;
+        }
+        .hero-text p {
+          font-size: 1.2rem;
+          margin: 1rem 0;
+        }
+        .hero-buttons button {
+          margin-right: 1rem;
+          padding: 0.75rem 1.5rem;
+          border: none;
+          background-color: #333;
+          color: white;
+          cursor: pointer;
+          border-radius: 5px;
+        }
+        .section {
+          padding: 2rem;
+          text-align: center;
+          border-top: 1px solid #ddd;
+          background-color: #fff;
+        }
+        .section h2 {
+          font-size: 2rem;
+          margin-bottom: 1rem;
+        }
+      `}</style>
     </div>
   );
 }
