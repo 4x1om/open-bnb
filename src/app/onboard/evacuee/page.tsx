@@ -4,38 +4,20 @@ import clsx from "clsx";
 import { useState } from "react";
 import Select, { MultiValue, SingleValue, GroupBase } from "react-select";
 
-interface HostData {
+interface EvacueeData {
 	name: string;
 	email: string;
 	phone: string;
 	languages: string[];
 	bio: string;
-	house: {
-		capacity: number;
-		duration: string;
-		address: string;
-		city: string;
-		state: string;
-		country: string;
-		photos: File[];
-	};
 }
 
-const initialHostData: HostData = {
+const initialEvacueeData: EvacueeData = {
 	name: "",
 	email: "",
 	phone: "",
 	languages: ["English"],
 	bio: "",
-	house: {
-		capacity: -1,
-		duration: "",
-		address: "",
-		city: "",
-		state: "",
-		country: "",
-		photos: [],
-	},
 };
 
 function TextBox({
@@ -69,13 +51,13 @@ export interface ColourOption {
 	readonly isDisabled?: boolean;
 }
 
-export default function OnboardHost() {
-	const [hostData, setHostData] = useState<HostData>(initialHostData);
+export default function OnboardEvacuee() {
+	const [evacueeData, setEvacueeData] = useState<EvacueeData>(initialEvacueeData);
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		setHostData({
-			...hostData,
+		setEvacueeData({
+			...evacueeData,
 			[name as string]: value,
 		});
 	};
@@ -87,26 +69,26 @@ export default function OnboardHost() {
 				<form onSubmit={() => {}}>
 					<div className="w-full px-10">
 						<div className="flex flex-row justify-center">
-							<h1 className="text-lg my-4">Host Information</h1>
+							<h1 className="text-lg my-4">Evacuee Information</h1>
 						</div>
 
 						<div className="grid grid-cols-2 gap-2">
 							<label>Name</label>
 							<TextBox
 								name={"name"}
-								value={hostData.name}
+								value={evacueeData.name}
 								onChange={onChange}
 							></TextBox>
 							<label>Email</label>
 							<TextBox
 								name={"email"}
-								value={hostData.email}
+								value={evacueeData.email}
 								onChange={onChange}
 							></TextBox>
 							<label>Phone number</label>
 							<TextBox
 								name={"phone"}
-								value={hostData.phone}
+								value={evacueeData.phone}
 								onChange={onChange}
 							></TextBox>
 							<label>Languages</label>
@@ -114,8 +96,8 @@ export default function OnboardHost() {
 								value={selectedLanguage}
 								onChange={(value: MultiValue<string>) => {
 									console.log(value);
-									// setHostData({
-									// 	...hostData,
+									// setEvacueeData({
+									// 	...EvacueeData,
 									// 	languages: value.map((v) => v.valueOf()),
 									// });
 								}}
