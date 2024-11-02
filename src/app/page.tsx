@@ -12,6 +12,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import { signInWithGoogle } from '@/userhandling.js'
+
 let width = screen.width;
 
 <head>
@@ -26,6 +28,7 @@ export default function LandingPage() {
 		<div>
 			<Navbar></Navbar>
 			{/* Main Section */}
+			<button onClick={() => {signInWithGoogle()} }>Sign in test</button>
 			<header className="hero">
 				<div className="hero-text">
 					<h1 style={{ marginLeft: width / 208.6897 + "em" }}>OpenBnB</h1>
