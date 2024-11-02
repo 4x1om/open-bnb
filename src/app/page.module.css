@@ -7,8 +7,14 @@
     color: white;
   }
 
-  .revalia-regular {
+  .revalia {
     font-family: "Revalia", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .mainButton {
+    font-family: "GeistVF";
     font-weight: 400;
     font-style: normal;
   }

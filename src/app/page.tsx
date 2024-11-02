@@ -11,41 +11,49 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+let width = screen.width;
+
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Revalia&display=swap');
+</style>
+</head>
+
 export default function LandingPage() {
   return (
     <div>
       {/* Navbar */}
-      <nav className="navbar">
+      <nav className={styles.navbar}>
         <div className="logo">
-          <h1 style={{fontSize: 50}}>OpenBnB</h1>
-          <Image src="/Images/logo.png" alt="Logo" width={70} height={70} style={{marginLeft: 1 + 'em'}}/>
+          <h1 className = {styles.revalia} style={{fontSize: width / 30.26}}>OpenBnB</h1>
+          <Image src="/Images/logo.png" alt="Logo" width={width / 21.614} height={width / 21.614} style={{marginLeft: width / width + 'em'}}/>
         </div>
         <div className="nav-buttons">
           <a href="#section1">About</a>
           <a href="#section2">Contact</a>
-          <Link href="/signup"><button className="signup-button">Sign Up / Login</button></Link>
+          <Link href="/hostorevacuee"><button className="signup-button">Sign Up / Login</button></Link>
         </div>
       </nav>
 
       {/* Main Section */}
       <header className="hero">
         <div className="hero-text">
-          <h1 style={{marginLeft: 7.25 + 'em'}}>OpenBnB</h1>
-          <p style={{marginLeft: 15 + 'em'}}>Homes for shelter in times of need</p>
+          <h1 style={{marginLeft: width / 208.6897 + 'em'}}>OpenBnB</h1>
+          <p style={{marginLeft: width / 100.687 + 'em'}}>Homes for shelter in times of need</p>
           <div className="hero-buttons">
-            <Link href="/about" style={{marginLeft: 18 + 'em'}}><button>I'm a host</button></Link>
-            <Link href="/contact" style={{marginLeft: 0 + 'em'}}><button>I'm an evacuee</button></Link>
+            <Link href="/host" style={{marginLeft: width / 84.056 + 'em'}}><button>I'm a host</button></Link>
+            <Link href="/evacuee" style={{marginLeft: 'em'}}><button>I'm an evacuee</button></Link>
           </div>
         </div>
         <div className="hero-image">
-        <Image src="/Images/landingMainImage.png" alt="Hero Image" width={600} height={400} style={{marginRight: 10 + 'em'}} />
+        <Image src="/Images/landingMainImage.png" alt="Hero Image" width={width / 2.52167} height={width / 3.7825} style={{marginRight: width / 151.3 + 'em'}} />
         </div>
       </header>
 
       {/* Scrollable Sections */}
       <section id="section1" className="section">
         <h2>About</h2>
-        <p style={{marginLeft: 15 + 'em', marginRight: 15+'em'}}>Over ___% of evacuees from disasters don't have a place to stay
+        <p style={{marginLeft: width / 100.867 + 'em', marginRight: width / 100.867 + 'em'}}>Over ___% of evacuees from disasters don't have a place to stay
         Over ___% of evacuees from disasters don't have a place to stay
         Over ___% of evacuees from disasters don't have a place to stay
         Over ___% of evacuees from disasters don't have a place to stay
