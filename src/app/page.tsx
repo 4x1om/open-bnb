@@ -3,11 +3,9 @@
 
 import styles from './page.module.css';
 
-// Inside the component, use `styles` for class names:
 <nav className={styles.navbar}>
   {/* Navbar content */}
 </nav>
-
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -29,7 +27,7 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Main Section */}
       <header className="hero">
         <div className="hero-text">
           <h1 style={{marginLeft: 7.25 + 'em'}}>OpenBnB</h1>
