@@ -12,8 +12,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-let width = screen.width;
-
 <head>
 	<style>
 		@import
@@ -22,6 +20,8 @@ let width = screen.width;
 </head>;
 
 export default function LandingPage() {
+	let width = screen.width;
+
 	return (
 		<div>
 			<Navbar></Navbar>
