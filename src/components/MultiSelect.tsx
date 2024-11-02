@@ -37,7 +37,7 @@ export default function MultiSelect() {
 	}, []);
 
 	return (
-		<div>
+		<div className="col-span-2">
 			<div
 				onFocus={() => setIsOpen(true)}
 				ref={multiSelectRef}
@@ -52,6 +52,10 @@ export default function MultiSelect() {
 						setInputValue(value);
 					}}
 					placeholder="type a language"
+					className={clsx(
+						"w-full border-1 border-gray-400 rounded-md px-2",
+						"outline-[#495F30] focus:outline focus:outline-2 outline-offset-0"
+					)}
 				/>
 				{filteredOptions.length > 0 && isOpen && (
 					<ul
@@ -89,7 +93,7 @@ export default function MultiSelect() {
 				)}
 			</div>
 			{selectedOptions.length > 0 && (
-				<div className="w-full flex flex-row gap-x-2">
+				<div className="w-full mt-2 flex flex-row flex-wrap gap-x-2 gap-y-1">
 					{selectedOptions.map((option) => (
 						<div
 							key={option}
