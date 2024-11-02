@@ -1,8 +1,8 @@
 "use client";
+import MultiSelect from "@/components/MultiSelect";
 import Navbar from "@/components/Navbar";
 import clsx from "clsx";
 import { useState } from "react";
-import Select, { MultiValue, SingleValue, GroupBase } from "react-select";
 
 interface HostData {
 	name: string;
@@ -61,14 +61,6 @@ function TextBox({
 	);
 }
 
-export interface ColourOption {
-	readonly value: string;
-	readonly label: string;
-	readonly color: string;
-	readonly isFixed?: boolean;
-	readonly isDisabled?: boolean;
-}
-
 export default function OnboardHost() {
 	const [hostData, setHostData] = useState<HostData>(initialHostData);
 
@@ -110,18 +102,7 @@ export default function OnboardHost() {
 								onChange={onChange}
 							></TextBox>
 							<label>Languages</label>
-							{/* <Select
-								value={selectedLanguage}
-								onChange={(value: MultiValue<string>) => {
-									console.log(value);
-									// setHostData({
-									// 	...hostData,
-									// 	languages: value.map((v) => v.valueOf()),
-									// });
-								}}
-								isMulti={true}
-								options={options}
-							></Select> */}
+							<MultiSelect></MultiSelect>
 						</div>
 					</div>
 				</form>
