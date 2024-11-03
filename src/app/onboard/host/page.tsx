@@ -3,6 +3,7 @@ import MultiSelect from "@/components/MultiSelect";
 import Navbar from "@/components/Navbar";
 import clsx from "clsx";
 import { useState } from "react";
+import Link from "next/link";
 
 interface HostData {
 	name: string;
@@ -84,14 +85,12 @@ export default function OnboardHost() {
 		}
 		if (hostData.email === "") {
 			if (hostData.languages.length === 0) {
-			errors.push("Email is required");
-		}}
-		if (hostData.phone === "") {
-			errors.push("Phone is required");
-		}
-		if (hostData.languages.length === 0) {
+				errors.push("Email is required");
+			}
+			if (hostData.phone === "") {
+				errors.push("Phone is required");
+			}
 			errors.push("At least one language is required");
-		errors.push("At least one language is required");
 		}
 		if (hostData.bio === "") {
 			errors.push("Bio is required");
@@ -272,6 +271,7 @@ export default function OnboardHost() {
 							</div>
 						)}
 						<div className="w-full my-8 flex flex-row justify-center">
+							<Link href="/afterHostSubmission">
 							<button
 								type="submit"
 								className={clsx(
@@ -280,10 +280,11 @@ export default function OnboardHost() {
 							>
 								Submit
 							</button>
+							</Link>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 	);
-	}
+}
