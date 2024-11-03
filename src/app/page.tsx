@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { signInWithGoogle } from "@/userhandling.js";
+// import { signInWithGoogle } from "@/userhandling.js";
 
 {
 	/* <head>
@@ -22,13 +22,6 @@ export default function LandingPage() {
 			<Navbar />
 
 			{/* Main Section */}
-			<button
-				onClick={() => {
-					signInWithGoogle();
-				}}
-			>
-				Sign in test
-			</button>
 			<header className="hero">
 				<div className="hero-text">
 					<h1>OpenBnB</h1>

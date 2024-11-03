@@ -27,4 +27,4 @@ function signInWithGoogle() {
 	});
 }
 
-export { signInWithGoogle, auth, db };
+export { signInWithGoogle, app, auth, db };

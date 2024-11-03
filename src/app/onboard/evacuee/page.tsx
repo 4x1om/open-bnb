@@ -5,6 +5,13 @@ import clsx from "clsx";
 import { useState } from "react";
 import Link from 'next/link';
 
+import { signInWithGoogle, app, auth, db } from '@/userhandling.js'
+
+import firebase from 'firebase/app';
+
+import { setDoc, getDoc , doc} from "firebase/firestore";
+
+
 interface EvacueeData {
 	name: string;
 	email: string;
@@ -14,11 +21,11 @@ interface EvacueeData {
 
 	capacity: number;
 	duration: string;
-	address: string;
-	city: string;
-	state: string;
-	country: string;
-	photos: File[];
+	// address: string;
+	// city: string;
+	// state: string;
+	// country: string;
+	// photos: File[];
 }
 
 const initialevacueeData: EvacueeData = {
@@ -30,11 +37,11 @@ const initialevacueeData: EvacueeData = {
 
 	capacity: -1,
 	duration: "",
-	address: "",
-	city: "",
-	state: "",
-	country: "United States",
-	photos: [],
+	// address: "",
+	// city: "",
+	// state: "",
+	// country: "United States",
+	// photos: [],
 };
 
 function TextBox({
@@ -101,21 +108,21 @@ export default function OnboardEvacuee() {
 		if (EvacueeData.duration === "") {
 			errors.push("Duration is required");
 		}
-		if (EvacueeData.address === "") {
-			errors.push("Address is required");
-		}
-		if (EvacueeData.city === "") {
-			errors.push("City is required");
-		}
-		if (EvacueeData.state === "") {
-			errors.push("State is required");
-		}
-		if (EvacueeData.country === "") {
-			errors.push("Country is required");
-		}
-		if (EvacueeData.photos.length === 0) {
-			errors.push("At least one photo is required");
-		}
+		// if (EvacueeData.address === "") {
+		// 	errors.push("Address is required");
+		// }
+		// if (EvacueeData.city === "") {
+		// 	errors.push("City is required");
+		// }
+		// if (EvacueeData.state === "") {
+		// 	errors.push("State is required");
+		// }
+		// if (EvacueeData.country === "") {
+		// 	errors.push("Country is required");
+		// }
+		// if (EvacueeData.photos.length === 0) {
+		// 	errors.push("At least one photo is required");
+		// }
 		setErrors(errors);
 		return errors.length === 0;
 	};
@@ -124,6 +131,10 @@ export default function OnboardEvacuee() {
 		e.preventDefault();
 		if (validate()) {
 			console.log(EvacueeData);
+
+			const path = doc(db, "evacuees", EvacueeData.email);
+
+			setDoc(path, EvacueeData);
 		}
 	};
 
@@ -214,7 +225,7 @@ export default function OnboardEvacuee() {
 									></TextBox>
 								</div>
 							</div>
-							<div className="col-span-2">
+							{/* <div className="col-span-2">
 								<label>Photos</label>
 								<br></br>
 								<input
@@ -229,7 +240,7 @@ export default function OnboardEvacuee() {
 										});
 									}}
 								/>
-							</div>
+							</div> */}
 						</div>
 						{errors.length > 0 && (
 							<div className="w-full my-8 flex">
@@ -243,7 +254,7 @@ export default function OnboardEvacuee() {
 							</div>
 						)}
 						<div className="w-full my-8 flex flex-row justify-center">
-							<Link href="/hostsearch">
+							{/* <Link href="/hostsearch"> */}
 							<button
 								type="submit"
 								className={clsx(
@@ -252,7 +263,7 @@ export default function OnboardEvacuee() {
 							>
 								Submit
 							</button>
-							</Link>
+							{/* </Link> */}
 						</div>
 					</div>
 				</form>
