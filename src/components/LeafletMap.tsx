@@ -3,7 +3,13 @@ import { Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
 
-export default function LeafletMap({ hosts }: { hosts: HostEntry[] }) {
+export default function LeafletMap({
+	hosts,
+	setHighlightHostByName,
+}: {
+	hosts: HostEntry[];
+	setHighlightHostByName: (name: string) => void;
+}) {
 	const mapRef = useRef<Map | null>(null);
 	const [L, setL] = useState<any | null>(null);
 
@@ -30,11 +36,18 @@ export default function LeafletMap({ hosts }: { hosts: HostEntry[] }) {
 				hosts.forEach((host) => {
 					const [lat, lon] = host.coords;
 					console.log(lat, lon);
-					L.marker([lat, lon], {
+					const marker = L.marker([lat, lon], {
 						icon: defaultIcon,
 					})
 						.addTo(map)
 						.bindPopup(host.name);
+					marker.on("click", () => {
+						setHighlightHostByName(host.name);
+					});
+				});
+
+				map.on("click", () => {
+					setHighlightHostByName("");
 				});
 
 				mapRef.current = map;

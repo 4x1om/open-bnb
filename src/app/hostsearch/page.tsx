@@ -193,21 +193,35 @@ const getMatchingStateAbbreviation = (query: string): string[] => {
 };
 
 // Sidebar component that shows a list of host cards with a filter
-const Sidebar: React.FC<{
+const Sidebar = ({
+	hosts,
+	onHostSelect,
+	searchQuery,
+	setSearchQuery,
+	highlightedHost,
+	setHighlightedHost,
+}: {
 	hosts: HostEntry[];
 	onHostSelect: (host: HostEntry) => void;
-}> = ({ hosts, onHostSelect }) => {
-	const [searchQuery, setSearchQuery] = useState<string>("");
-
+	searchQuery: string;
+	setSearchQuery: (searchQuery: string) => void;
+	highlightedHost: HostEntry | null;
+	setHighlightedHost: (host: HostEntry | null) => void;
+}) => {
 	// Get matching abbreviations for the search query
 	const matchingAbbreviations = getMatchingStateAbbreviation(searchQuery);
 
 	// Filter hosts if their location contains any matching abbreviation or the query as is
-	const filteredHosts = hosts.filter(
-		(host) =>
-			matchingAbbreviations.some((abbr) => host.location.includes(abbr)) ||
-			host.location.toLowerCase().includes(searchQuery.toLowerCase())
-	);
+	let filteredHosts;
+	if (highlightedHost) {
+		filteredHosts = hosts.filter((host) => host.name === highlightedHost.name);
+	} else {
+		filteredHosts = hosts.filter(
+			(host) =>
+				matchingAbbreviations.some((abbr) => host.location.includes(abbr)) ||
+				host.location.toLowerCase().includes(searchQuery.toLowerCase())
+		);
+	}
 
 	return (
 		<div style={styles.sidebar}>
@@ -218,7 +232,10 @@ const Sidebar: React.FC<{
 				type="text"
 				placeholder="Search by location..."
 				value={searchQuery}
-				onChange={(e) => setSearchQuery(e.target.value)}
+				onChange={(e) => {
+					setSearchQuery(e.target.value);
+					setHighlightedHost(null);
+				}}
 				style={styles.searchInput}
 			/>
 
@@ -227,7 +244,11 @@ const Sidebar: React.FC<{
 					filteredHosts.map((host) => (
 						<div
 							key={host.id}
-							style={styles.hostCard}
+							style={{
+								...styles.hostCard,
+								backgroundColor:
+									highlightedHost?.name === host.name ? "#ffcccc" : "#ffffff",
+							}}
 							onClick={() => onHostSelect(host)}
 						>
 							<h3>{host.name}</h3>
@@ -249,7 +270,21 @@ const Sidebar: React.FC<{
 
 // Main component to render the map and sidebar
 const Page: React.FC = () => {
+	const [searchQuery, setSearchQuery] = useState<string>("");
 	const [hosts, setHosts] = useState<HostEntry[]>([]);
+
+	const [highlightedHost, setHighlightedHost] = useState<HostEntry | null>(
+		null
+	);
+	function setHighlightedHostByName(name: string) {
+		const host = hosts.find((host) => host.name === name) || null;
+		if (host) {
+			setHighlightedHost(host);
+			setSearchQuery("");
+		} else {
+			setHighlightedHost(null);
+		}
+	}
 
 	useEffect(() => {
 		const data = generateDummyHosts();
@@ -264,11 +299,21 @@ const Page: React.FC = () => {
 		<div style={styles.container}>
 			{/* Placeholder for Map */}
 			<div style={styles.map}>
-				<LeafletMap hosts={hosts}></LeafletMap>
+				<LeafletMap
+					hosts={hosts}
+					setHighlightHostByName={setHighlightedHostByName}
+				></LeafletMap>
 			</div>
 
 			{/* Sidebar with host list and filter */}
-			<Sidebar hosts={hosts} onHostSelect={handleHostSelect} />
+			<Sidebar
+				hosts={hosts}
+				onHostSelect={handleHostSelect}
+				searchQuery={searchQuery}
+				setSearchQuery={setSearchQuery}
+				highlightedHost={highlightedHost}
+				setHighlightedHost={setHighlightedHost}
+			/>
 		</div>
 	);
 };
