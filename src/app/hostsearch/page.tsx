@@ -1,6 +1,7 @@
-"use client"
+"use client";
 // page.tsx
 import React, { useState, useEffect } from 'react';
+import DetailsPanel from "@/components/DetailsPanel";
 
 interface Host {
     id: string;
@@ -34,8 +35,6 @@ const generateDummyHosts = (): Host[] => [
     { id: "20", name: "Matthew Hall", location: "Las Vegas, NV", contact: "matthewh@example.com", details: "Spacious villa with pool, can accommodate 8 guests." }
 ];
 
-
-// Mapping full state names to abbreviations
 const stateAbbreviations: { [key: string]: string } = {
     "Massachusetts": "MA",
     "California": "CA",
@@ -44,27 +43,19 @@ const stateAbbreviations: { [key: string]: string } = {
     // Add more states as needed
 };
 
-// Function to match query against both full state names and abbreviations
 const getMatchingStateAbbreviation = (query: string): string[] => {
     const lowerQuery = query.toLowerCase();
-
-    // Find matching abbreviations and full state names that contain the query as a substring
     const matches = Object.entries(stateAbbreviations).filter(([fullName, abbr]) =>
         fullName.toLowerCase().includes(lowerQuery) || abbr.toLowerCase().includes(lowerQuery)
     );
-
-    // Return the matching abbreviations and full state names
     return matches.map(([, abbr]) => abbr);
 };
 
-// Sidebar component that shows a list of host cards with a filter
 const Sidebar: React.FC<{ hosts: Host[]; onHostSelect: (host: Host) => void }> = ({ hosts, onHostSelect }) => {
     const [searchQuery, setSearchQuery] = useState<string>("");
 
-    // Get matching abbreviations for the search query
     const matchingAbbreviations = getMatchingStateAbbreviation(searchQuery);
 
-    // Filter hosts if their location contains any matching abbreviation or the query as is
     const filteredHosts = hosts.filter(host =>
         matchingAbbreviations.some(abbr => host.location.includes(abbr)) ||
         host.location.toLowerCase().includes(searchQuery.toLowerCase())
@@ -73,8 +64,6 @@ const Sidebar: React.FC<{ hosts: Host[]; onHostSelect: (host: Host) => void }> =
     return (
         <div style={styles.sidebar}>
             <h2>Available Hosts</h2>
-
-            {/* Search input for filtering hosts by location */}
             <input
                 type="text"
                 placeholder="Search by location..."
@@ -82,7 +71,6 @@ const Sidebar: React.FC<{ hosts: Host[]; onHostSelect: (host: Host) => void }> =
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={styles.searchInput}
             />
-
             <div style={styles.hostList}>
                 {filteredHosts.length > 0 ? (
                     filteredHosts.map((host) => (
@@ -100,9 +88,9 @@ const Sidebar: React.FC<{ hosts: Host[]; onHostSelect: (host: Host) => void }> =
     );
 };
 
-// Main component to render the map and sidebar
 const Page: React.FC = () => {
     const [hosts, setHosts] = useState<Host[]>([]);
+    const [selectedHost, setSelectedHost] = useState<Host | null>(null);
 
     useEffect(() => {
         const data = generateDummyHosts();
@@ -110,40 +98,66 @@ const Page: React.FC = () => {
     }, []);
 
     const handleHostSelect = (host: Host) => {
-        console.log(`Selected host: ${host.name}`);
+        setSelectedHost(host);
+    };
+
+    const handleBackToMap = () => {
+        setSelectedHost(null); // Reset the selected host to hide details panel
     };
 
     return (
         <div style={styles.container}>
-            {/* Placeholder for Map */}
             <div style={styles.map}>
                 <h1>Map Component</h1>
                 <p>Map will appear here. Click a host to focus on their location.</p>
             </div>
-
-            {/* Sidebar with host list and filter */}
+            
+            {selectedHost && (
+                <div style={styles.detailsPanel}>
+                    <DetailsPanel
+                        title={selectedHost.name}
+                        content={selectedHost.details}
+                        onBack={handleBackToMap} // Pass the back function to the DetailsPanel
+                    />
+                </div>
+            )}
+            
             <Sidebar hosts={hosts} onHostSelect={handleHostSelect} />
         </div>
     );
 };
 
-// Basic styles for layout
 const styles = {
     container: {
-        display: 'flex',
-        flexDirection: 'row' as 'row',
+        display: 'grid',
+        gridTemplateColumns: '1fr 20%', // Map takes the rest, Sidebar takes 20% on the right
+        gridTemplateRows: '100vh',
+        position: 'relative' as 'relative',
+        width: '100%',
     },
     map: {
-        width: '70%',
+        gridColumn: '1', // Map takes the first column
         padding: '20px',
         backgroundColor: '#e6f7ff',
         height: '100vh',
+        position: 'relative' as 'relative',
+        zIndex: 1, // Ensure the map is under the details panel when open
+    },
+    detailsPanel: {
+        position: 'absolute' as 'absolute', // Make it absolute to overlap the map
+        top: 0,
+        left: 0,
+        right: '20%', // Sidebar width
+        bottom: 0,
+        backgroundColor: '#fff', // Panel background
+        zIndex: 2, // Ensure the details panel is above the map
+        overflowY: 'auto' as 'auto',
+        borderRight: '1px solid #ddd', // Optional: add a border to separate from the sidebar
     },
     sidebar: {
-        width: '30%',
+        gridColumn: '2', // Sidebar takes the second column (right)
         backgroundColor: '#f8f9fa',
         padding: '20px',
-        borderLeft: '1px solid #ddd',
         height: '100vh',
         overflowY: 'auto' as 'auto',
     },
