@@ -1,0 +1,96 @@
+{
+    "hosts": [
+      {
+        "name": "Alice Johnson",
+        "email": "alice.johnson@example.com",
+        "phone_number": "+1-202-555-0153",
+        "languages": ["English", "Spanish"],
+        "address": "123 Maple St, Springfield, IL",
+        "occupation": "Teacher",
+        "notes": "Has a spare room and a basement available."
+      },
+      {
+        "name": "Robert Smith",
+        "email": "robert.smith@example.com",
+        "phone_number": "+1-202-555-0172",
+        "languages": ["English", "French"],
+        "address": "456 Oak Ave, Lincoln, NE",
+        "occupation": "Engineer",
+        "notes": "Has pet-friendly accommodations."
+      },
+      {
+        "name": "Sophia Lee",
+        "email": "sophia.lee@example.com",
+        "phone_number": "+1-202-555-0123",
+        "languages": ["English", "Chinese"],
+        "address": "789 Pine Blvd, Austin, TX",
+        "occupation": "Graphic Designer",
+        "notes": "Can accommodate children."
+      },
+      {
+        "name": "Michael Brown",
+        "email": "michael.brown@example.com",
+        "phone_number": "+1-202-555-0188",
+        "languages": ["English", "German"],
+        "address": "101 Cedar Ln, Portland, OR",
+        "occupation": "Chef",
+        "notes": "Allergic to cats."
+      },
+      {
+        "name": "Linda Green",
+        "email": "linda.green@example.com",
+        "phone_number": "+1-202-555-0190",
+        "languages": ["English", "Italian"],
+        "address": "303 Birch Dr, Madison, WI",
+        "occupation": "Nurse",
+        "notes": "Wheelchair-accessible home."
+      }
+    ],
+    "evacuees": [
+      {
+        "name": "Carlos Martinez",
+        "email": "carlos.martinez@example.com",
+        "phone_number": "+1-202-555-0145",
+        "languages": ["Spanish", "English"],
+        "address": "Temporary Shelter 1",
+        "occupation": "Student",
+        "notes": "Requires vegetarian meals."
+      },
+      {
+        "name": "Fatima Khan",
+        "email": "fatima.khan@example.com",
+        "phone_number": "+1-202-555-0174",
+        "languages": ["Arabic", "English"],
+        "address": "Temporary Shelter 2",
+        "occupation": "Software Developer",
+        "notes": "Needs access to Wi-Fi for remote work."
+      },
+      {
+        "name": "Ivan Petrov",
+        "email": "ivan.petrov@example.com",
+        "phone_number": "+1-202-555-0167",
+        "languages": ["Russian", "English"],
+        "address": "Temporary Shelter 3",
+        "occupation": "Electrician",
+        "notes": "Traveling with a pet dog."
+      },
+      {
+        "name": "Ming Zhao",
+        "email": "ming.zhao@example.com",
+        "phone_number": "+1-202-555-0133",
+        "languages": ["Chinese", "English"],
+        "address": "Temporary Shelter 4",
+        "occupation": "Researcher",
+        "notes": "Prefers non-smoking environment."
+      },
+      {
+        "name": "Emma Wilson",
+        "email": "emma.wilson@example.com",
+        "phone_number": "+1-202-555-0199",
+        "languages": ["English", "French"],
+        "address": "Temporary Shelter 5",
+        "occupation": "Freelance Writer",
+        "notes": "Needs wheelchair accessibility."
+      }
+    ]
+  }  

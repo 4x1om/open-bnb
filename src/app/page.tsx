@@ -54,35 +54,110 @@ export default function LandingPage() {
 			</header>
 
 			{/* Scrollable Sections */}
-			<section id="section1" className="section">
+
+			<section id="section0" className="section">
+				<h2 style={{marginTop: 100}}>Why OpenBnB?</h2>
+				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
+				In major hurricanes like Katrina, while 1.2 million people successfully evacuated, however, hundreds of thousands were 
+				left stranded due to shelter shortages—issues that platforms like OpenBnB could help mitigate.</p>
+				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
+				Hurricane Milton led to mandatory evacuations for 6 million Floridians, prompting many to flee on last-minute flights 
+				without accommodations, a problem OpenBnB could address by connecting evacuees with nearby hosts.</p>
+				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
+				Beyond physical displacement, evacuees face prolonged financial and emotional stress from extended stays in emergency 
+				shelters; OpenBnB could alleviate these challenges by connecting evacuees with hosts, providing stable, comforting 
+				accommodations during recovery.</p>
+				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
+				Studies show that evacuees who don’t return to their residences face higher unemployment (up to 25%) compared to those who can return, highlighting the importance of stable, temporary housing for economic recovery. 
+				Massachusetts experiences an average of 10-12 winter storms each year, including blizzards like Winter Storm Grayson, which dumped over 14 inches of snow in 2018. This impacts travel and local essential support for those displaced by such weather events.
+				</p>
+			</section>
+
+			<section id="section1" className="sectionColored" >
 				<h2>About</h2>
-				<p>
-					Over ___% of evacuees from disasters don't have a place to stay.
-					{/* Additional placeholder text */}
+				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
+				OpenBnB is a platform dedicated to providing secure, temporary housing solutions for people facing urgent displacement 
+				due to natural disasters. When hurricanes, wildfires, or other emergencies force evacuations, finding safe, reliable 
+				shelter becomes a pressing need. Traditional options, like public shelters, hotels, or family homes, are often limited 
+				and quickly overwhelmed. OpenBnB steps in to bridge this gap by connecting evacuees with local hosts willing to offer 
+				their space, creating a community-driven response to displacement.</p>
+				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
+				Our mission is to empower communities to support each other during crises, making it easier for displaced individuals 
+				to find comfort and stability in times of uncertainty. OpenBnB is designed to alleviate the stress and uncertainty 
+				evacuees face, providing a network of welcoming homes for those in need.</p>
+				<p style={{marginLeft: 200, marginRight: 200}}>
+				Whether you’re a family in an evacuation zone or someone with space to share, OpenBnB makes finding and offering 
+				shelter simple and accessible. We believe in the strength of communities to come together, providing support where 
+				it's needed most. By using OpenBnB, hosts and guests alike can contribute to a safer, more compassionate response to 
+				disaster displacement.
 				</p>
 			</section>
 
 			<section id="section2" className="section">
 				<h2>Contact</h2>
 				<p>Questions? You can contact us at openbnb@gmail.com</p>
-				<div className="contact-logo">
-					<Image
-						src="/Images/urbanRefugeLogo.png"
-						alt="Urban Refuge"
-						width={100}
-						height={100}
-						className="contact-logo"
-					/>
-				</div>
 			</section>
 
-			<section id="section3" className="section">
-				<h2>Meet the Team</h2>
-				<p>Rae Yan Denali Schlesinger Alan Xi Hassan Dawy</p>
+			<section id="section3" className="sectionColored">
+				<h2 style={{marginBottom: 20}}>Meet the Team</h2>
+
+			<div className="team-container">
+        	<div className="team-member">
+            <Image
+                src="/Images/denali.jpg"
+                alt="Denali Schlesinger"
+                width={250}
+                height={250}
+            />
+            <p>Denali Schlesinger</p>
+        </div>
+
+        <div className="team-member">
+            <Image
+                src="/Images/rae.jpg"
+                alt="Rae Yan"
+                width={250}
+                height={250}
+            />
+            <p>Rae Yan</p>
+        </div>
+
+		<div className="team-member">
+			<Image
+				src="/Images/hassan.jpg"
+				alt="Hassan Dawy"
+				width={250}
+				height={250}
+			/>
+			<p>Hassan Dawy</p>
+		</div>
+
+		<div className="team-member">
+			<Image
+				src="/Images/alan.png"
+				alt="Alan Xi"
+				width={250}
+				height={250}
+			/>
+			<p>Alan Xi</p>
+		</div>
+    </div>
 			</section>
 
 			<style jsx>{`
 				/* Base styles for responsive layout */
+				
+				.team-container {
+        			display: flex;
+        			justify-content: center;
+        			gap: 2rem;
+    			}
+
+    			.team-member {
+        			display: flex;
+        			flex-direction: column;
+        			align-items: center;
+    			}
 
 				.hero {
 					display: flex;
@@ -133,6 +208,18 @@ export default function LandingPage() {
 					text-align: center;
 					border-top: 1px solid #ddd;
 					background-color: #fff;
+				}
+				
+				.sectionColored {
+					padding: 2rem 5%;
+					text-align: center;
+					border-top: 1px solid #ddd;
+					background-color: #f0f0f0;
+				}
+
+				.sectionColored h2 {
+					font-size: 2vw;
+					margin-bottom: 1rem;
 				}
 
 				.section h2 {
