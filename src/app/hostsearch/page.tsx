@@ -267,7 +267,7 @@ const Page: React.FC = () => {
 	const [highlightedHost, setHighlightedHost] = useState<HostEntry | null>(
 		null
 	);
-	function setHighlightedHostByName(name: string) {
+	function setHighlightedHostByName(name: string | null) {
 		const host = hosts.find((host) => host.name === name) || null;
 		if (host) {
 			setHighlightedHost(host);
@@ -305,6 +305,7 @@ const Page: React.FC = () => {
 				) : (
 					<LeafletMap
 						hosts={hosts}
+						selectedHost={selectedHost}
 						setHighlightHostByName={setHighlightedHostByName}
 					></LeafletMap>
 				)}
@@ -328,6 +329,7 @@ const styles = {
 		display: "grid",
 		gridTemplateColumns: "1fr 20%", // Map takes the rest, Sidebar takes 20% on the right
 		gridTemplateRows: "100vh",
+		overflow: "hidden",
 		position: "relative" as "relative",
 		width: "100%",
 	},
@@ -340,11 +342,11 @@ const styles = {
 		zIndex: 1, // Ensure the map is under the details panel when open
 	},
 	detailsPanel: {
-		position: "absolute" as "absolute", // Make it absolute to overlap the map
-		top: 0,
-		left: 0,
-		right: "20%", // Sidebar width
-		bottom: 0,
+		// position: "absolute" as "absolute", // Make it absolute to overlap the map
+		// top: 0,
+		// left: 0,
+		// right: "20%", // Sidebar width
+		// bottom: 0,
 		backgroundColor: "#fff", // Panel background
 		zIndex: 2, // Ensure the details panel is above the map
 		overflowY: "auto" as "auto",

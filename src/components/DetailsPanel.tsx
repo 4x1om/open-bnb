@@ -7,13 +7,17 @@ interface DetailsPanelProps {
 	onBack: () => void; // Add this line to accept the onBack function
 }
 
-const DetailsPanel: React.FC<DetailsPanelProps> = ({
+const DetailsPanel = ({
 	title,
 	content,
 	onBack,
+}: {
+	title: string;
+	content: string;
+	onBack: () => void;
 }) => {
 	return (
-		<div className="flex flex-col w-full h-screen">
+		<div className="flex flex-col w-full h-screen overflow-y-auto">
 			{/* Back Button */}
 			<button
 				onClick={onBack}

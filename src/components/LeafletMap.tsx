@@ -6,9 +6,14 @@ import { useEffect, useRef, useState } from "react";
 interface LeafletMapProps {
 	hosts: HostEntry[];
 	selectedHost: HostEntry | null; // Include selectedHost prop
+	setHighlightHostByName: (name: string | null) => void;
 }
 
-export default function LeafletMap({ hosts, selectedHost }: LeafletMapProps) {
+export default function LeafletMap({
+	hosts,
+	selectedHost,
+	setHighlightHostByName,
+}: LeafletMapProps) {
 	const mapRef = useRef<Map | null>(null);
 	const [L, setL] = useState<any | null>(null);
 
