@@ -56,7 +56,7 @@ export default function LandingPage() {
 			{/* Scrollable Sections */}
 
 			<section id="section0" className="section">
-				<h2 style={{marginTop: 100}}>Why OpenBnB?</h2>
+				<h2 style={{marginTop: 100, marginBottom: 50}}>Why OpenBnB?</h2>
 				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
 				In major hurricanes like Katrina, while 1.2 million people successfully evacuated, however, hundreds of thousands were 
 				left stranded due to shelter shortages—issues that platforms like OpenBnB could help mitigate.</p>
@@ -74,7 +74,7 @@ export default function LandingPage() {
 			</section>
 
 			<section id="section1" className="sectionColored" >
-				<h2 style={{marginTop: 100}}>About</h2>
+				<h2 style={{marginTop: 100, marginBottom: 50}}>About</h2>
 				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
 				OpenBnB is a platform dedicated to providing secure, temporary housing solutions for people facing urgent displacement 
 				due to natural disasters. When hurricanes, wildfires, or other emergencies force evacuations, finding safe, reliable 
@@ -111,7 +111,8 @@ export default function LandingPage() {
                 height={250}
             />
 			</div>
-            <p style={{marginTop: 25}}>Denali Schlesinger</p>
+            <p style={{marginTop: 25, fontStyle: "italic"}}>Denali Schlesinger</p>
+			<p style={{marginTop: 10}}>Data Science major at Boston University</p>
         </div>
 
         <div className="team-member">
@@ -123,7 +124,8 @@ export default function LandingPage() {
                 height={250}
             />
 			</div>
-            <p style={{marginTop: 25}}>Rae Yan</p>
+            <p style={{marginTop: 25, fontStyle: "italic"}}>Rae Yan</p>
+			<p style={{marginTop: 10}}>Computer Science & Music major at Northeastern University</p>
         </div>
 
 		<div className="team-member">
@@ -135,19 +137,21 @@ export default function LandingPage() {
 				height={250}
 			/>
 			</div>
-			<p style={{marginTop: 25}}>Hassan Dawy</p>
+			<p style={{marginTop: 25, fontStyle: "italic"}}>Hassan Dawy</p>
+			<p style={{marginTop: 10}}>Data Science major at Boston University</p>
 		</div>
 
 		<div className="team-member">
 			<div className="team-image">
 			<Image
-				src="/Images/alan.png"
+				src="/Images/alan.jpg"
 				alt="Alan Xi"
 				width={250}
 				height={250}
 			/>
 			</div>
-			<p style={{marginTop: 25}}>Alan Xi</p>
+			<p style={{marginTop: 25, fontStyle: "italic"}}>Alan Xi</p>
+			<p style={{marginTop: 10}}>Computer Science & Math major at Boston University</p>
 		</div>
     </div>
 			</section>
