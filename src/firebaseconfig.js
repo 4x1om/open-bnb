@@ -1,4 +1,4 @@
-const firebaseConfig = {
+const firebaseConfig = { // process broke so hard coding and revoking api key after hackathon
 	apiKey: "AIzaSyCxcfPcfpA4SWm1tNA5n8hLjvRGd9kGob4", // broke so hard code :( process.env.REACT_APP_FIREBASE_API_KEY,
 	authDomain: "openbnb-d875e.firebaseapp.com", // process.env.REACT_APP_AUTH_DOMAIN,
 	projectId: "openbnb-d875e", // process.env.REACT_APP_PROJECT_ID,
