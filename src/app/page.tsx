@@ -6,18 +6,29 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-<head>
+import { signInWithGoogle } from "@/userhandling.js";
+
+{
+	/* <head>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Revalia&display=swap');
 	</style>
-</head>;
+</head>; */
+}
 
 export default function LandingPage() {
 	return (
 		<div>
 			<Navbar />
-			
+
 			{/* Main Section */}
+			<button
+				onClick={() => {
+					signInWithGoogle();
+				}}
+			>
+				Sign in test
+			</button>
 			<header className="hero">
 				<div className="hero-text">
 					<h1>OpenBnB</h1>
@@ -35,7 +46,7 @@ export default function LandingPage() {
 					<Image
 						src="/Images/landingMainImage.png"
 						alt="Hero Image"
-						layout="responsive"
+						// layout="responsive"
 						width={500} // use proportional width and height values for responsiveness
 						height={300}
 					/>
@@ -156,7 +167,7 @@ export default function LandingPage() {
 					background-color: #f0f0f0;
 					flex-direction: column;
 				}
-				
+
 				.hero-text {
 					text-align: center;
 					margin-bottom: 1rem;
@@ -217,10 +228,10 @@ export default function LandingPage() {
 				}
 
 				.contact-logo {
-					display: block;         /* Ensures it behaves as a block element */
-					margin: 0 auto;         /* Centers the image horizontally */
-					width: 100px;           /* Sets a fixed width, adjust as needed */
-					height: 100px;          /* Ensures proportional dimensions */
+					display: block; /* Ensures it behaves as a block element */
+					margin: 0 auto; /* Centers the image horizontally */
+					width: 100px; /* Sets a fixed width, adjust as needed */
+					height: 100px; /* Ensures proportional dimensions */
 				}
 
 				/* Responsive adjustments */
