@@ -28,9 +28,10 @@ export default function Navbar() {
 				/>
 			</div>
 			<div className="nav-buttons">
-				<a href="#section1" onClick={(e) => handleScroll(e, "section1")}>About</a>
-				<a href="#section2" onClick={(e) => handleScroll(e, "section2")}>Contact</a>
-				<a href="#section3" onClick={(e) => handleScroll(e, "section3")}>Meet the Team</a>
+				<a href="#section0" onClick={(e) => handleScroll(e, "section0")} style={{marginRight: 15}}>Why OpenBnB?</a>
+				<a href="#section1" onClick={(e) => handleScroll(e, "section1")} style={{marginRight: 15}}>About</a>
+				<a href="#section2" onClick={(e) => handleScroll(e, "section2")} style={{marginRight: 15}}>Contact</a>
+				<a href="#section3" onClick={(e) => handleScroll(e, "section3")} style={{marginRight: 15}}>Meet the Team</a>
 				<Link href="/hostorevacuee">
 					<button className="signup-button">Sign Up / Login</button>
 				</Link>

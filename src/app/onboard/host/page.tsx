@@ -83,13 +83,13 @@ export default function OnboardHost() {
 			errors.push("Name is required");
 		}
 		if (hostData.email === "") {
+			if (hostData.languages.length === 0) {
 			errors.push("Email is required");
 		}
 		if (hostData.phone === "") {
 			errors.push("Phone is required");
 		}
-		if (hostData.languages.length === 0) {
-			errors.push("At least one language is required");
+		errors.push("At least one language is required");
 		}
 		if (hostData.bio === "") {
 			errors.push("Bio is required");
