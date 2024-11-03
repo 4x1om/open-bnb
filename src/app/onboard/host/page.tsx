@@ -2,7 +2,8 @@
 import MultiSelect from "@/components/MultiSelect";
 import Navbar from "@/components/Navbar";
 import clsx from "clsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Link from "next/link";
 
 import { signInWithGoogle, auth, db } from '@/userhandling.js';
 
@@ -154,8 +155,48 @@ export default function OnboardHost() {
 
             alert("Host information submitted successfully! Thank you for your support.");
 
-            // Redirect to home page
-            window.location.href = "/";
+
+	const validate = () => {
+		const errors = [];
+		if (hostData.name === "") {
+			errors.push("Name is required");
+		}
+		if (hostData.email === "") {
+			if (hostData.languages.length === 0) {
+			errors.push("Email is required");
+		}
+		if (hostData.phone === "") {
+			errors.push("Phone is required");
+		}
+		errors.push("At least one language is required");
+		}
+		if (hostData.bio === "") {
+			errors.push("Bio is required");
+		}
+		if (hostData.capacity === -1) {
+			errors.push("Capacity is required");
+		}
+		if (hostData.duration === "") {
+			errors.push("Duration is required");
+		}
+		if (hostData.address === "") {
+			errors.push("Address is required");
+		}
+		if (hostData.city === "") {
+			errors.push("City is required");
+		}
+		if (hostData.state === "") {
+			errors.push("State is required");
+		}
+		if (hostData.country === "") {
+			errors.push("Country is required");
+		}
+		if (hostData.photos.length === 0) {
+			errors.push("At least one photo is required");
+		}
+		setErrors(errors);
+		return errors.length === 0;
+	};
 
         }
     };
@@ -217,100 +258,98 @@ export default function OnboardHost() {
                             <h1 className="text-lg my-4">House information</h1>
                         </div>
 
-                        <div className="w-full grid grid-cols-5 gap-8">
-                            <div className="col-span-3">
-                                <div className="grid grid-cols-3 gap-2">
-                                    <label>Capacity</label>
-                                    <select
-                                        name="capacity"
-                                        id="capacity"
-                                        className="col-span-2 rounded-md"
-                                        onChange={(e) => {
-                                            const { value } = e.target;
-                                            setHostData({
-                                                ...hostData,
-                                                capacity: parseInt(value),
-                                            });
-                                        }}
-                                    >
-                                        <option value="-1">Select capacity</option>
-                                        {[...Array(10)].map((_, index) => (
-                                            <option key={index} value={index + 1}>{index + 1}</option>
-                                        ))}
-                                        <option value="10">9+</option>
-                                    </select>
-                                    <label>Duration</label>
-                                    <TextBox
-                                        name={"duration"}
-                                        value={hostData.duration}
-                                        placeholder="1 week"
-                                        onChange={onChange}
-                                    />
-                                    <label>Address</label>
-                                    <TextBox
-                                        name={"address"}
-                                        value={hostData.address}
-                                        onChange={onChange}
-                                    />
-                                    <label>City</label>
-                                    <TextBox
-                                        name={"city"}
-                                        value={hostData.city}
-                                        onChange={onChange}
-                                    />
-                                    <label>State</label>
-                                    <TextBox
-                                        name={"state"}
-                                        value={hostData.state}
-                                        onChange={onChange}
-                                    />
-                                    <label>Country</label>
-                                    <TextBox
-                                        name={"country"}
-                                        value={hostData.country}
-                                        onChange={onChange}
-                                    />
-                                </div>
-                            </div>
-                            {/* <div className="col-span-2">
-                                <label>Photos</label>
-                                <br />
-                                <input
-                                    type="file"
-                                    id="photos"
-                                    name="photos"
-                                    className="w-full border-1 border-gray-400 rounded-md px-2"
-                                    onChange={(e) => {
-                                        setHostData({
-                                            ...hostData,
-                                            photos: Array.from(e.target.files || []),
-                                        });
-                                    }}
-                                />
-                            </div> */}
-                        </div>
-                        {errors.length > 0 && (
-                            <div className="w-full my-8 flex">
-                                <ul>
-                                    {errors.map((error, index) => (
-                                        <li key={index} className="text-red-500">{error}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                        <div className="w-full my-8 flex flex-row justify-center">
-                            <button
-                                type="submit"
-                                className={clsx(
-                                    "bg-[#7CA451] text-white text-md px-4 py-2 rounded-md"
-                                )}
-                            >
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+												capacity: parseInt(value),
+											});
+										}}
+									>
+										<option value="-1">Select capacity</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">9+</option>
+									</select>
+									<label>Duration</label>
+									<TextBox
+										name={"duration"}
+										value={hostData.duration}
+										placeholder="1 week"
+										onChange={onChange}
+									></TextBox>
+									<label>Address</label>
+									<TextBox
+										name={"address"}
+										value={hostData.address}
+										onChange={onChange}
+									></TextBox>
+									<label>City</label>
+									<TextBox
+										name={"city"}
+										value={hostData.city}
+										onChange={onChange}
+									></TextBox>
+									<label>State</label>
+									<TextBox
+										name={"state"}
+										value={hostData.state}
+										onChange={onChange}
+									></TextBox>
+									<label>Country</label>
+									<TextBox
+										name={"country"}
+										value={hostData.country}
+										onChange={onChange}
+									></TextBox>
+								</div>
+							</div>
+							<div className="col-span-2">
+								<label>Photos</label>
+								<br></br>
+								<input
+									type="file"
+									id="photos"
+									name="photos"
+									className="w-full border-1 border-gray-400 rounded-md px-2"
+									onChange={(e) => {
+										setHostData({
+											...hostData,
+											photos: Array.from(e.target.files || []),
+										});
+									}}
+								/>
+							</div>
+						</div>
+						{errors.length > 0 && (
+							<div className="w-full my-8 flex">
+								<ul>
+									{errors.map((error, index) => (
+										<li key={index} className="text-red-500">
+											{error}
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
+						<div className="w-full my-8 flex flex-row justify-center">
+							<Link href="/afterHostSubmission">
+							<button
+								type="submit"
+								className={clsx(
+									"bg-[#7CA451] text-white text-md px-4 py-2 rounded-md"
+								)}
+							>
+								Submit
+							</button>
+							</Link>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	);
 }
