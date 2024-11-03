@@ -3,6 +3,7 @@ import MultiSelect from "@/components/MultiSelect";
 import Navbar from "@/components/Navbar";
 import clsx from "clsx";
 import { useState } from "react";
+import Link from 'next/link';
 
 interface EvacueeData {
 	name: string;
@@ -242,6 +243,7 @@ export default function OnboardEvacuee() {
 							</div>
 						)}
 						<div className="w-full my-8 flex flex-row justify-center">
+							<Link href="/hostsearch">
 							<button
 								type="submit"
 								className={clsx(
@@ -250,6 +252,7 @@ export default function OnboardEvacuee() {
 							>
 								Submit
 							</button>
+							</Link>
 						</div>
 					</div>
 				</form>
