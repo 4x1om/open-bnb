@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import clsx from "clsx";
 import { useState } from "react";
 import Link from "next/link";
+import { Metadata } from "next";
 
 interface HostData {
 	name: string;
@@ -85,12 +86,12 @@ export default function OnboardHost() {
 		}
 		if (hostData.email === "") {
 			if (hostData.languages.length === 0) {
-			errors.push("Email is required");
-		}
-		if (hostData.phone === "") {
-			errors.push("Phone is required");
-		}
-		errors.push("At least one language is required");
+				errors.push("Email is required");
+			}
+			if (hostData.phone === "") {
+				errors.push("Phone is required");
+			}
+			errors.push("At least one language is required");
 		}
 		if (hostData.bio === "") {
 			errors.push("Bio is required");
@@ -272,14 +273,14 @@ export default function OnboardHost() {
 						)}
 						<div className="w-full my-8 flex flex-row justify-center">
 							<Link href="/afterHostSubmission">
-							<button
-								type="submit"
-								className={clsx(
-									"bg-[#7CA451] text-white text-md px-4 py-2 rounded-md"
-								)}
-							>
-								Submit
-							</button>
+								<button
+									type="submit"
+									className={clsx(
+										"bg-[#7CA451] text-white text-md px-4 py-2 rounded-md"
+									)}
+								>
+									Submit
+								</button>
 							</Link>
 						</div>
 					</div>
