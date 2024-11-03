@@ -74,7 +74,7 @@ export default function LandingPage() {
 			</section>
 
 			<section id="section1" className="sectionColored" >
-				<h2>About</h2>
+				<h2 style={{marginTop: 100}}>About</h2>
 				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
 				OpenBnB is a platform dedicated to providing secure, temporary housing solutions for people facing urgent displacement 
 				due to natural disasters. When hurricanes, wildfires, or other emergencies force evacuations, finding safe, reliable 
