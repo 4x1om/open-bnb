@@ -16,7 +16,7 @@ export default function LeafletMap({
 	useEffect(() => {
 		if (L) {
 			if (!mapRef.current) {
-				const map = L.map("map-container").setView([51.505, -0.09], 13);
+				const map = L.map("map-container").setView([40, -97], 4);
 				const defaultIcon = L.icon({
 					iconUrl:
 						"https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png", // default Leaflet marker icon
@@ -35,7 +35,7 @@ export default function LeafletMap({
 
 				hosts.forEach((host) => {
 					const [lat, lon] = host.coords;
-					console.log(lat, lon);
+					// console.log(lat, lon);
 					const marker = L.marker([lat, lon], {
 						icon: defaultIcon,
 					})
