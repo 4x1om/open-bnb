@@ -251,6 +251,7 @@ export default function OnboardHost() {
 							</div>
 						)}
 						<div className="w-full my-8 flex flex-row justify-center">
+							<Link href="/afterHostSubmission">
 							<button
 								type="submit"
 								className={clsx(
@@ -259,6 +260,7 @@ export default function OnboardHost() {
 							>
 								Submit
 							</button>
+							</Link>
 						</div>
 					</div>
 				</form>
