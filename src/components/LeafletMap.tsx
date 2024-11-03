@@ -1,8 +1,9 @@
+import { HostEntry } from "@/app/hostsearch/page";
 import { Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
 
-export default function LeafletMap() {
+export default function LeafletMap({ hosts }: { hosts: HostEntry[] }) {
 	const mapRef = useRef<Map | null>(null);
 	const [L, setL] = useState<any | null>(null);
 
@@ -26,12 +27,15 @@ export default function LeafletMap() {
 					attribution: "© OpenStreetMap contributors",
 				}).addTo(map);
 
-				const marker = L.marker([51.5, -0.09], {
-					icon: defaultIcon,
-				})
-					.addTo(map)
-					.bindPopup("A weird CSS3 popup")
-					.openPopup();
+				hosts.forEach((host) => {
+					const [lat, lon] = host.coords;
+					console.log(lat, lon);
+					L.marker([lat, lon], {
+						icon: defaultIcon,
+					})
+						.addTo(map)
+						.bindPopup(host.name);
+				});
 
 				mapRef.current = map;
 			}
