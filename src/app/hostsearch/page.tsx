@@ -2,6 +2,7 @@
 import LeafletMap from "@/components/LeafletMap"; // Import your LeafletMap component
 import React, { useState, useEffect } from "react";
 import DetailsPanel from "@/components/DetailsPanel";
+import Navbar from "@/components/Navbar";
 
 export interface HostEntry {
 	id: string;
@@ -292,34 +293,37 @@ const Page: React.FC = () => {
 	};
 
 	return (
-		<div style={styles.container}>
-			<div style={styles.map}>
-				{selectedHost ? (
-					<div style={styles.detailsPanel}>
-						<DetailsPanel
-							title={selectedHost.name}
-							content={selectedHost.details}
-							onBack={handleBackToMap} // Pass the back function to the DetailsPanel
-						/>
-					</div>
-				) : (
-					<LeafletMap
-						hosts={hosts}
-						selectedHost={selectedHost}
-						setHighlightHostByName={setHighlightedHostByName}
-					></LeafletMap>
-				)}
-			</div>
+		<div className="w-full h-full overflow-hidden">
+			<Navbar></Navbar>
+			<div style={styles.container}>
+				<div style={styles.map}>
+					{selectedHost ? (
+						<div style={styles.detailsPanel}>
+							<DetailsPanel
+								title={selectedHost.name}
+								content={selectedHost.details}
+								onBack={handleBackToMap} // Pass the back function to the DetailsPanel
+							/>
+						</div>
+					) : (
+						<LeafletMap
+							hosts={hosts}
+							selectedHost={selectedHost}
+							setHighlightHostByName={setHighlightedHostByName}
+						></LeafletMap>
+					)}
+				</div>
 
-			{/* Sidebar with host list and filter */}
-			<Sidebar
-				hosts={hosts}
-				onHostSelect={handleHostSelect}
-				searchQuery={searchQuery}
-				setSearchQuery={setSearchQuery}
-				highlightedHost={highlightedHost}
-				setHighlightedHost={setHighlightedHost}
-			/>
+				{/* Sidebar with host list and filter */}
+				<Sidebar
+					hosts={hosts}
+					onHostSelect={handleHostSelect}
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					highlightedHost={highlightedHost}
+					setHighlightedHost={setHighlightedHost}
+				/>
+			</div>
 		</div>
 	);
 };
