@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import LeafletMap from "@/components/LeafletMap";
 // page.tsx
 import React, { useState, useEffect } from "react";
@@ -168,6 +168,7 @@ const generateDummyHosts = (): HostEntry[] => [
 		coords: [36.1699, -115.1398],
 	},
 ];
+
 const stateAbbreviations: { [key: string]: string } = {
 	Massachusetts: "MA",
 	California: "CA",
@@ -177,64 +178,26 @@ const stateAbbreviations: { [key: string]: string } = {
 };
 
 const getMatchingStateAbbreviation = (query: string): string[] => {
-    const lowerQuery = query.toLowerCase();
-    const matches = Object.entries(stateAbbreviations).filter(([fullName, abbr]) =>
-        fullName.toLowerCase().includes(lowerQuery) || abbr.toLowerCase().includes(lowerQuery)
-    );
-    return matches.map(([, abbr]) => abbr);
+	const lowerQuery = query.toLowerCase();
+	const matches = Object.entries(stateAbbreviations).filter(([fullName, abbr]) =>
+		fullName.toLowerCase().includes(lowerQuery) || abbr.toLowerCase().includes(lowerQuery)
+	);
+	return matches.map(([, abbr]) => abbr);
 };
 
-const Sidebar: React.FC<{
-	hosts: HostEntry[];
-	onHostSelect: (host: HostEntry) => void;
-}> = ({ hosts, onHostSelect }) => {
+const Sidebar: React.FC<{ hosts: HostEntry[]; onHostSelect: (host: HostEntry) => void }> = ({ hosts, onHostSelect }) => {
 	const [searchQuery, setSearchQuery] = useState<string>("");
 
-    const matchingAbbreviations = getMatchingStateAbbreviation(searchQuery);
-	// Get matching abbreviations for the search query
 	const matchingAbbreviations = getMatchingStateAbbreviation(searchQuery);
 
-    const filteredHosts = hosts.filter(host =>
-        matchingAbbreviations.some(abbr => host.location.includes(abbr)) ||
-        host.location.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-	// Filter hosts if their location contains any matching abbreviation or the query as is
-	const filteredHosts = hosts.filter(
-		(host) =>
-			matchingAbbreviations.some((abbr) => host.location.includes(abbr)) ||
-			host.location.toLowerCase().includes(searchQuery.toLowerCase())
+	const filteredHosts = hosts.filter(host =>
+		matchingAbbreviations.some(abbr => host.location.includes(abbr)) ||
+		host.location.toLowerCase().includes(searchQuery.toLowerCase())
 	);
 
-    return (
-        <div style={styles.sidebar}>
-            <h2>Available Hosts</h2>
-            <input
-                type="text"
-                placeholder="Search by location..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={styles.searchInput}
-            />
-            <div style={styles.hostList}>
-                {filteredHosts.length > 0 ? (
-                    filteredHosts.map((host) => (
-                        <div key={host.id} style={styles.hostCard} onClick={() => onHostSelect(host)}>
-                            <h3>{host.name}</h3>
-                            <p><strong>Location:</strong> {host.location}</p>
-                            <p><strong>Details:</strong> {host.details}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p style={styles.noResults}>No hosts found for "{searchQuery}"</p>
-                )}
-            </div>
-        </div>
-    );
 	return (
 		<div style={styles.sidebar}>
 			<h2>Available Hosts</h2>
-
-			{/* Search input for filtering hosts by location */}
 			<input
 				type="text"
 				placeholder="Search by location..."
@@ -242,22 +205,13 @@ const Sidebar: React.FC<{
 				onChange={(e) => setSearchQuery(e.target.value)}
 				style={styles.searchInput}
 			/>
-
 			<div style={styles.hostList}>
 				{filteredHosts.length > 0 ? (
 					filteredHosts.map((host) => (
-						<div
-							key={host.id}
-							style={styles.hostCard}
-							onClick={() => onHostSelect(host)}
-						>
+						<div key={host.id} style={styles.hostCard} onClick={() => onHostSelect(host)}>
 							<h3>{host.name}</h3>
-							<p>
-								<strong>Location:</strong> {host.location}
-							</p>
-							<p>
-								<strong>Details:</strong> {host.details}
-							</p>
+							<p><strong>Location:</strong> {host.location}</p>
+							<p><strong>Details:</strong> {host.details}</p>
 						</div>
 					))
 				) : (
@@ -269,157 +223,101 @@ const Sidebar: React.FC<{
 };
 
 const Page: React.FC = () => {
-	const [hosts, setHosts] = useState<HostEntry[]>([]);
-    const [selectedHost, setSelectedHost] = useState<Host | null>(null);
+	const [hosts, setHosts] = useState<HostEntry[]>([]); // Changed from Host to HostEntry
+	const [selectedHost, setSelectedHost] = useState<HostEntry | null>(null); // Changed from Host to HostEntry
 
 	useEffect(() => {
 		const data = generateDummyHosts();
 		setHosts(data);
 	}, []);
 
-    const handleHostSelect = (host: Host) => {
-        setSelectedHost(host);
-    };
-
-    const handleBackToMap = () => {
-        setSelectedHost(null); // Reset the selected host to hide details panel
-    };
-	const handleHostSelect = (host: HostEntry) => {
-		console.log(`Selected host: ${host.name}`);
+	const handleHostSelect = (host: HostEntry) => { // Changed from Host to HostEntry
+		setSelectedHost(host);
 	};
 
-    return (
-        <div style={styles.container}>
-            <div style={styles.map}>
-                <h1>Map Component</h1>
-                <p>Map will appear here. Click a host to focus on their location.</p>
-            </div>
-            
-            {selectedHost && (
-                <div style={styles.detailsPanel}>
-                    <DetailsPanel
-                        title={selectedHost.name}
-                        content={selectedHost.details}
-                        onBack={handleBackToMap} // Pass the back function to the DetailsPanel
-                    />
-                </div>
-            )}
-            
-            <Sidebar hosts={hosts} onHostSelect={handleHostSelect} />
-        </div>
-    );
+	const handleBackToMap = () => {
+		setSelectedHost(null); // Reset the selected host to hide details panel
+	};
+
 	return (
 		<div style={styles.container}>
-			{/* Placeholder for Map */}
 			<div style={styles.map}>
-				<LeafletMap hosts={hosts}></LeafletMap>
+				<h1>Map Component</h1>
+				<p>Map will appear here. Click a host to focus on their location.</p>
 			</div>
-
-			{/* Sidebar with host list and filter */}
+			
+			{selectedHost && (
+				<div style={styles.detailsPanel}>
+					<DetailsPanel
+						title={selectedHost.name}
+						content={selectedHost.details}
+						onBack={handleBackToMap} // Pass the back function to the DetailsPanel
+					/>
+				</div>
+			)}
+			
 			<Sidebar hosts={hosts} onHostSelect={handleHostSelect} />
 		</div>
 	);
 };
 
 const styles = {
-    container: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 20%', // Map takes the rest, Sidebar takes 20% on the right
-        gridTemplateRows: '100vh',
-        position: 'relative' as 'relative',
-        width: '100%',
-    },
-    map: {
-        gridColumn: '1', // Map takes the first column
-        padding: '20px',
-        backgroundColor: '#e6f7ff',
-        height: '100vh',
-        position: 'relative' as 'relative',
-        zIndex: 1, // Ensure the map is under the details panel when open
-    },
-    detailsPanel: {
-        position: 'absolute' as 'absolute', // Make it absolute to overlap the map
-        top: 0,
-        left: 0,
-        right: '20%', // Sidebar width
-        bottom: 0,
-        backgroundColor: '#fff', // Panel background
-        zIndex: 2, // Ensure the details panel is above the map
-        overflowY: 'auto' as 'auto',
-        borderRight: '1px solid #ddd', // Optional: add a border to separate from the sidebar
-    },
-    sidebar: {
-        gridColumn: '2', // Sidebar takes the second column (right)
-        backgroundColor: '#f8f9fa',
-        padding: '20px',
-        height: '100vh',
-        overflowY: 'auto' as 'auto',
-    },
-    searchInput: {
-        width: '100%',
-        padding: '10px',
-        marginBottom: '15px',
-        borderRadius: '5px',
-        border: '1px solid #ccc',
-    },
-    hostList: {
-        display: 'flex',
-        flexDirection: 'column' as 'column',
-        gap: '15px',
-    },
-    hostCard: {
-        padding: '15px',
-        backgroundColor: '#ffffff',
-        borderRadius: '8px',
-        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s',
-    },
-    noResults: {
-        textAlign: 'center' as 'center',
-        color: '#888',
-    },
 	container: {
-		display: "flex",
-		flexDirection: "row" as "row",
+		display: 'grid',
+		gridTemplateColumns: '1fr 20%', // Map takes the rest, Sidebar takes 20% on the right
+		gridTemplateRows: '100vh',
+		position: 'relative' as 'relative',
+		width: '100%',
 	},
 	map: {
-		width: "70%",
-		padding: "20px",
-		backgroundColor: "#e6f7ff",
-		height: "100vh",
+		gridColumn: '1', // Map takes the first column
+		padding: '20px',
+		backgroundColor: '#e6f7ff',
+		height: '100vh',
+		position: 'relative' as 'relative',
+		zIndex: 1, // Ensure the map is under the details panel when open
+	},
+	detailsPanel: {
+		position: 'absolute' as 'absolute', // Make it absolute to overlap the map
+		top: 0,
+		left: 0,
+		right: '20%', // Sidebar width
+		bottom: 0,
+		backgroundColor: '#fff', // Panel background
+		zIndex: 2, // Ensure the details panel is above the map
+		overflowY: 'auto' as 'auto',
+		borderRight: '1px solid #ddd', // Optional: add a border to separate from the sidebar
 	},
 	sidebar: {
-		width: "30%",
-		backgroundColor: "#f8f9fa",
-		padding: "20px",
-		borderLeft: "1px solid #ddd",
-		height: "100vh",
-		overflowY: "auto" as "auto",
+		gridColumn: '2', // Sidebar takes the second column (right)
+		backgroundColor: '#f8f9fa',
+		padding: '20px',
+		height: '100vh',
+		overflowY: 'auto' as 'auto',
 	},
 	searchInput: {
-		width: "100%",
-		padding: "10px",
-		marginBottom: "15px",
-		borderRadius: "5px",
-		border: "1px solid #ccc",
+		width: '100%',
+		padding: '10px',
+		marginBottom: '15px',
+		borderRadius: '5px',
+		border: '1px solid #ccc',
 	},
 	hostList: {
-		display: "flex",
-		flexDirection: "column" as "column",
-		gap: "15px",
+		display: 'flex',
+		flexDirection: 'column' as 'column',
+		gap: '15px',
 	},
 	hostCard: {
-		padding: "15px",
-		backgroundColor: "#ffffff",
-		borderRadius: "8px",
-		boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
-		cursor: "pointer",
-		transition: "background-color 0.3s",
+		padding: '15px',
+		backgroundColor: '#ffffff',
+		borderRadius: '8px',
+		boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
+		cursor: 'pointer',
+		transition: 'background-color 0.3s',
 	},
 	noResults: {
-		textAlign: "center" as "center",
-		color: "#888",
+		textAlign: 'center' as 'center',
+		color: '#888',
 	},
 };
 
