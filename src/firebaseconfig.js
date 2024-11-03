@@ -1,5 +1,5 @@
 const firebaseConfig = {
-	apiKey: "AIzaSyCxcfPcfpA4SWm1tNA5n8hLjvRGd9kGob4", // broke :( process.env.REACT_APP_FIREBASE_API_KEY,
+	apiKey: "AIzaSyCxcfPcfpA4SWm1tNA5n8hLjvRGd9kGob4", // broke so hard code :( process.env.REACT_APP_FIREBASE_API_KEY,
 	authDomain: "openbnb-d875e.firebaseapp.com", // process.env.REACT_APP_AUTH_DOMAIN,
 	projectId: "openbnb-d875e", // process.env.REACT_APP_PROJECT_ID,
 	storageBucket: "openbnb-d875e.firebasestorage.app", // process.env.REACT_APP_STORAGE_BUCKET,
