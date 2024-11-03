@@ -153,6 +153,10 @@ export default function OnboardHost() {
             setDoc(doc(db, "posts", hostData.email), hostData)
 
             alert("Host information submitted successfully! Thank you for your support.");
+
+            // Redirect to home page
+            window.location.href = "/";
+
         }
     };
 
