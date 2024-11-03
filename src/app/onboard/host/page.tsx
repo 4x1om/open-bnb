@@ -5,78 +5,156 @@ import clsx from "clsx";
 import { useState } from "react";
 import Link from "next/link";
 
-interface HostData {
-	name: string;
-	email: string;
-	phone: string;
-	languages: string[];
-	bio: string;
+import { signInWithGoogle, auth, db } from '@/userhandling.js';
 
-	capacity: number;
-	duration: string;
-	address: string;
-	city: string;
-	state: string;
-	country: string;
-	photos: File[];
+import firebase from "firebase/compat/app";
+
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, getDocs, doc, setDoc, getDoc, arrayUnion  } from "firebase/firestore";
+
+interface HostData {
+    name: string;
+    email: string;
+    phone: string;
+    languages: string[];
+    bio: string;
+    capacity: number;
+    duration: string;
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    // photos: File[];
 }
 
 const initialHostData: HostData = {
-	name: "",
-	email: "",
-	phone: "",
-	languages: ["English"],
-	bio: "",
-
-	capacity: -1,
-	duration: "",
-	address: "",
-	city: "",
-	state: "",
-	country: "United States",
-	photos: [],
+    name: "",
+    email: "",
+    phone: "",
+    languages: ["English"],
+    bio: "",
+    capacity: -1,
+    duration: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "United States",
+    // photos: [],
 };
 
+
+// Define TextBox component
 function TextBox({
-	name,
-	value,
-	placeholder,
-	onChange,
+    name,
+    value,
+    placeholder,
+    onChange,
 }: {
-	name: string;
-	value: string;
-	placeholder?: string;
-	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    name: string;
+    value: string;
+    placeholder?: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-	return (
-		<input
-			type="text"
-			name={name}
-			value={value}
-			placeholder={placeholder}
-			className={clsx(
-				"col-span-2 border-1 border-gray-400 rounded-md px-2",
-				"outline-[#495F30] focus:outline focus:outline-2 outline-offset-0"
-			)}
-			onChange={onChange}
-		/>
-	);
+    return (
+        <input
+            type="text"
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            className={clsx(
+                "col-span-2 border-1 border-gray-400 rounded-md px-2",
+                "outline-[#495F30] focus:outline focus:outline-2 outline-offset-0"
+            )}
+            onChange={onChange}
+        />
+    );
 }
 
 export default function OnboardHost() {
-	const [hostData, setHostData] = useState<HostData>(initialHostData);
+    const [hostData, setHostData] = useState<HostData>(initialHostData);
+    const [errors, setErrors] = useState<string[]>([]);
+    const [user, setUser] = useState<any>(null); // State to store user information
+    const [loading, setLoading] = useState(true); // State to manage loading
 
-	const [errors, setErrors] = useState<string[]>([]);
+    // Effect to monitor authentication state
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                console.log(user);
+                setUser(user); // Store user information in state
+                setHostData((prev) => ({
+                    ...prev,
+                    name: user.displayName || "", // Set name if available
+                    email: user.email || "" // Set email if available
+                    // photo: user.photoURL || "", // Set photo if available
+                }));
+            } else {
+                // No user is signed in, attempt to sign in
+                console.log("No user signed in.");
+                signInWithGoogle();
+            }
+            setLoading(false); // Set loading to false after auth state is determined
+        });
 
-	const onChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => {
-		const { name, value } = e.target;
-		setHostData({
-			...hostData,
-			[name as string]: value,
-		});
-	};
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    }, []);
+
+    const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setHostData({
+            ...hostData,
+            [name as string]: value,
+        });
+    };
+
+    const validate = () => {
+        const errors = [];
+        if (hostData.name === "") errors.push("Name is required");
+        if (hostData.email === "") errors.push("Email is required");
+        if (hostData.phone === "") errors.push("Phone is required");
+        if (hostData.languages.length === 0) errors.push("At least one language is required");
+        if (hostData.bio === "") errors.push("Bio is required");
+        if (hostData.capacity === -1) errors.push("Capacity is required");
+        if (hostData.duration === "") errors.push("Duration is required");
+        if (hostData.address === "") errors.push("Address is required");
+        if (hostData.city === "") errors.push("City is required");
+        if (hostData.state === "") errors.push("State is required");
+        if (hostData.country === "") errors.push("Country is required");
+        // if (hostData.photos.length === 0) errors.push("At least one photo is required");
+
+        setErrors(errors);
+        return errors.length === 0;
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (validate()) {
+            console.log(hostData);
+            
+            const postsCollectionRef = collection(db, "posts");
+            const snapshot = await getDocs(postsCollectionRef);
+
+            if (snapshot.empty) {
+                console.log("No posts found.");
+            }
+
+            const posts = [];
+            snapshot.forEach(doc => {
+                posts.push({ id: doc.id, ...doc.data() }); // Combine the document ID with its data
+            });
+
+            console.log("All posts:", posts);
+
+            console.log(hostData)
+            
+            setDoc(doc(db, "posts", hostData.email), hostData)
+
+            alert("Host information submitted successfully! Thank you for your support.");
+
 
 	const validate = () => {
 		const errors = [];
@@ -120,78 +198,65 @@ export default function OnboardHost() {
 		return errors.length === 0;
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		if (validate()) {
-			console.log(hostData);
-		}
-	};
+        }
+    };
 
-	return (
-		<div className="w-screen h-screen">
-			<Navbar></Navbar>
-			<div className="w-full h-full">
-				<form className="w-full h-full" onSubmit={handleSubmit}>
-					<div className="w-full min-h-full px-10 bg-gray-200 overflow-y-auto">
-						<div className="flex flex-row justify-center">
-							<h1 className="text-lg my-4">Host Information</h1>
-						</div>
+    if (loading) {
+        return <div>Loading...</div>; // Optional loading state while checking auth
+    }
 
-						<div className="grid grid-cols-5 gap-8">
-							<div className="col-span-3 grid grid-cols-3 gap-2">
-								<label>Name</label>
-								<TextBox
-									name={"name"}
-									value={hostData.name}
-									onChange={onChange}
-								></TextBox>
-								<label>Email</label>
-								<TextBox
-									name={"email"}
-									value={hostData.email}
-									onChange={onChange}
-								></TextBox>
-								<label>Phone number</label>
-								<TextBox
-									name={"phone"}
-									value={hostData.phone}
-									onChange={onChange}
-								></TextBox>
-								<label>Languages</label>
-								<MultiSelect></MultiSelect>
-							</div>
-							<div className="col-span-2">
-								<label>Bio</label>
-								<br></br>
-								<textarea
-									name="bio"
-									value={hostData.bio}
-									placeholder="Tell the evacuees a little bit about yourself!"
-									className={clsx(
-										"w-full border-1 border-gray-400 rounded-md px-2 h-20",
-										"outline-[#495F30] focus:outline focus:outline-2 outline-offset-0"
-									)}
-									onChange={onChange}
-								/>
-							</div>
-						</div>
+    return (
+        <div className="w-screen h-screen">
+            <Navbar />
+            <div className="w-full h-full text-black">
+                <form className="w-full h-full" onSubmit={handleSubmit}>
+                    <div className="w-full min-h-full px-10 bg-gray-200 overflow-y-auto">
+                        <div className="flex flex-row justify-center">
+                            <h1 className="text-lg my-4">Host Information</h1>
+                        </div>
 
-						<div className="flex flex-row justify-center">
-							<h1 className="text-lg my-4">House information</h1>
-						</div>
+                        <div className="grid grid-cols-5 gap-8">
+                            <div className="col-span-3 grid grid-cols-3 gap-2">
+                                <label>Name</label>
+                                <TextBox
+                                    name={"name"}
+                                    value={hostData.name}
+                                    onChange={onChange}
+                                />
+                                <label>Email</label>
+                                <TextBox
+                                    name={"email"}
+                                    value={hostData.email}
+                                    onChange={onChange}
+                                />
+                                <label>Phone number</label>
+                                <TextBox
+                                    name={"phone"}
+                                    value={hostData.phone}
+                                    onChange={onChange}
+                                />
+                                <label>Languages</label>
+                                <MultiSelect />
+                            </div>
+                            <div className="col-span-2">
+                                <label>Bio</label>
+                                <br />
+                                <textarea
+                                    name="bio"
+                                    value={hostData.bio}
+                                    placeholder="Tell the evacuees a little bit about yourself!"
+                                    className={clsx(
+                                        "w-full border-1 border-gray-400 rounded-md px-2 h-20",
+                                        "outline-[#495F30] focus:outline focus:outline-2 outline-offset-0"
+                                    )}
+                                    onChange={onChange}
+                                />
+                            </div>
+                        </div>
 
-						<div className="w-full grid grid-cols-5 gap-8">
-							<div className="col-span-3">
-								<div className="grid grid-cols-3 gap-2">
-									<label>Capacity</label>
-									<select
-										name="capacity"
-										id="capacity"
-										className="col-span-2 rounded-md"
-										onChange={(e) => {
-											const { value } = e.target;
-											setHostData({
-												...hostData,
+                        <div className="flex flex-row justify-center">
+                            <h1 className="text-lg my-4">House information</h1>
+                        </div>
 
 												capacity: parseInt(value),
 											});
