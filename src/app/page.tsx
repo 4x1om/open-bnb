@@ -103,43 +103,51 @@ export default function LandingPage() {
 
 			<div className="team-container">
         	<div className="team-member">
+				<div className="team-image">
             <Image
                 src="/Images/denali.jpg"
                 alt="Denali Schlesinger"
                 width={250}
                 height={250}
             />
-            <p>Denali Schlesinger</p>
+			</div>
+            <p style={{marginTop: 25}}>Denali Schlesinger</p>
         </div>
 
         <div className="team-member">
+			<div className="team-image">
             <Image
                 src="/Images/rae.jpg"
                 alt="Rae Yan"
                 width={250}
                 height={250}
             />
-            <p>Rae Yan</p>
+			</div>
+            <p style={{marginTop: 25}}>Rae Yan</p>
         </div>
 
 		<div className="team-member">
+			<div className="team-image">
 			<Image
 				src="/Images/hassan.jpg"
 				alt="Hassan Dawy"
 				width={250}
 				height={250}
 			/>
-			<p>Hassan Dawy</p>
+			</div>
+			<p style={{marginTop: 25}}>Hassan Dawy</p>
 		</div>
 
 		<div className="team-member">
+			<div className="team-image">
 			<Image
 				src="/Images/alan.png"
 				alt="Alan Xi"
 				width={250}
 				height={250}
 			/>
-			<p>Alan Xi</p>
+			</div>
+			<p style={{marginTop: 25}}>Alan Xi</p>
 		</div>
     </div>
 			</section>
@@ -158,6 +166,10 @@ export default function LandingPage() {
         			flex-direction: column;
         			align-items: center;
     			}
+
+				.team-image {
+					border: 10px solid black;
+				}
 
 				.hero {
 					display: flex;
