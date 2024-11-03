@@ -1,6 +1,5 @@
 "use client";
-import LeafletMap from "@/components/LeafletMap";
-// page.tsx
+import LeafletMap from "@/components/LeafletMap"; // Import your LeafletMap component
 import React, { useState, useEffect } from "react";
 import DetailsPanel from "@/components/DetailsPanel";
 
@@ -195,7 +194,7 @@ const Sidebar: React.FC<{ hosts: HostEntry[]; onHostSelect: (host: HostEntry) =>
 		host.location.toLowerCase().includes(searchQuery.toLowerCase())
 	);
 
-	return (
+    return (
 		<div style={styles.sidebar}>
 			<h2>Available Hosts</h2>
 			<input
@@ -223,27 +222,26 @@ const Sidebar: React.FC<{ hosts: HostEntry[]; onHostSelect: (host: HostEntry) =>
 };
 
 const Page: React.FC = () => {
-	const [hosts, setHosts] = useState<HostEntry[]>([]); // Changed from Host to HostEntry
-	const [selectedHost, setSelectedHost] = useState<HostEntry | null>(null); // Changed from Host to HostEntry
+	const [hosts, setHosts] = useState<HostEntry[]>([]);
+	const [selectedHost, setSelectedHost] = useState<HostEntry | null>(null);
 
 	useEffect(() => {
 		const data = generateDummyHosts();
 		setHosts(data);
 	}, []);
 
-	const handleHostSelect = (host: HostEntry) => { // Changed from Host to HostEntry
+	const handleHostSelect = (host: HostEntry) => {
 		setSelectedHost(host);
 	};
 
 	const handleBackToMap = () => {
-		setSelectedHost(null); // Reset the selected host to hide details panel
+		setSelectedHost(null);
 	};
 
 	return (
 		<div style={styles.container}>
 			<div style={styles.map}>
-				<h1>Map Component</h1>
-				<p>Map will appear here. Click a host to focus on their location.</p>
+				<LeafletMap hosts={hosts} selectedHost={selectedHost} /> {/* Pass selectedHost to map if needed */}
 			</div>
 			
 			{selectedHost && (
@@ -251,7 +249,7 @@ const Page: React.FC = () => {
 					<DetailsPanel
 						title={selectedHost.name}
 						content={selectedHost.details}
-						onBack={handleBackToMap} // Pass the back function to the DetailsPanel
+						onBack={handleBackToMap}
 					/>
 				</div>
 			)}
