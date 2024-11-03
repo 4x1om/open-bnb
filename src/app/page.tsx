@@ -68,8 +68,11 @@ export default function LandingPage() {
 				shelters; OpenBnB could alleviate these challenges by connecting evacuees with hosts, providing stable, comforting 
 				accommodations during recovery.</p>
 				<p style={{marginLeft: 200, marginRight: 200, marginBottom: 30}}>
-				Studies show that evacuees who don’t return to their residences face higher unemployment (up to 25%) compared to those who can return, highlighting the importance of stable, temporary housing for economic recovery. 
-				Massachusetts experiences an average of 10-12 winter storms each year, including blizzards like Winter Storm Grayson, which dumped over 14 inches of snow in 2018. This impacts travel and local essential support for those displaced by such weather events.
+				Studies show that evacuees who don’t return to their residences face higher unemployment (up to 25%) compared to those 
+				who can return, highlighting the importance of stable, temporary housing for economic recovery. 
+				Massachusetts experiences an average of 10-12 winter storms each year, including blizzards like Winter Storm Grayson, 
+				which dumped over 14 inches of snow in 2018. This impacts travel and local essential support for those displaced by 
+				such weather events.
 				</p>
 			</section>
 
