@@ -18,7 +18,6 @@ interface HostData {
 	city: string;
 	state: string;
 	country: string;
-	photos: File[];
 }
 
 const initialHostData: HostData = {
@@ -34,7 +33,6 @@ const initialHostData: HostData = {
 	city: "",
 	state: "",
 	country: "United States",
-	photos: [],
 };
 
 function TextBox({
@@ -112,9 +110,6 @@ export default function OnboardHost() {
 		}
 		if (hostData.country === "") {
 			errors.push("Country is required");
-		}
-		if (hostData.photos.length === 0) {
-			errors.push("At least one photo is required");
 		}
 		setErrors(errors);
 		return errors.length === 0;
@@ -242,22 +237,7 @@ export default function OnboardHost() {
 									></TextBox>
 								</div>
 							</div>
-							<div className="col-span-2">
-								<label>Photos</label>
-								<br></br>
-								<input
-									type="file"
-									id="photos"
-									name="photos"
-									className="w-full border-1 border-gray-400 rounded-md px-2"
-									onChange={(e) => {
-										setHostData({
-											...hostData,
-											photos: Array.from(e.target.files || []),
-										});
-									}}
-								/>
-							</div>
+							<div className="col-span-2"></div>
 						</div>
 						{errors.length > 0 && (
 							<div className="w-full my-8 flex">
