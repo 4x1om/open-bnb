@@ -22,7 +22,9 @@ function signInWithGoogle() {
 		const token = credential.accessToken;
 		const user = result.user;
 		console.log("User signed in:", user);
+
+		// return user
 	});
 }
 
-export { signInWithGoogle };
+export { signInWithGoogle, auth, db };

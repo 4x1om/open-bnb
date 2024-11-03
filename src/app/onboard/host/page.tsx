@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import clsx from "clsx";
 import { useState } from "react";
 import Link from "next/link";
-import { Metadata } from "next";
 
 interface HostData {
 	name: string;
@@ -272,16 +271,14 @@ export default function OnboardHost() {
 							</div>
 						)}
 						<div className="w-full my-8 flex flex-row justify-center">
-							<Link href="/afterHostSubmission">
-								<button
-									type="submit"
-									className={clsx(
-										"bg-[#7CA451] text-white text-md px-4 py-2 rounded-md"
-									)}
-								>
-									Submit
-								</button>
-							</Link>
+							<button
+								type="submit"
+								className={clsx(
+									"bg-[#7CA451] text-white text-md px-4 py-2 rounded-md"
+								)}
+							>
+								Submit
+							</button>
 						</div>
 					</div>
 				</form>
