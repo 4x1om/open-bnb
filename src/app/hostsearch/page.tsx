@@ -3,6 +3,14 @@ import LeafletMap from "@/components/LeafletMap"; // Import your LeafletMap comp
 import React, { useState, useEffect } from "react";
 import DetailsPanel from "@/components/DetailsPanel";
 
+import { signInWithGoogle, app, auth, db } from '@/userhandling.js'
+
+import firebase from 'firebase/app';
+
+import { setDoc, getDoc , doc, getDocs, collection} from "firebase/firestore";
+
+import getCoordinatesFromAddress from '@/geo.js'
+
 export interface HostEntry {
 	id: string;
 	name: string;
@@ -278,9 +286,33 @@ const Page: React.FC = () => {
 	}
 
 	useEffect(() => {
-		const data = generateDummyHosts();
-		setHosts(data);
-	}, []);
+
+		const fetchData = async () => {
+			try {
+			  const querySnapshot = await getDocs(collection(db, "posts"));
+			  
+			  // Use Promise.all to wait for all getCoordinatesFromAddress calls to resolve
+				const data = await Promise.all(
+					querySnapshot.docs.map(async (doc) => ({
+					id: doc.id,
+					location: `${doc.data().city}, ${doc.data().country}`,
+					name: doc.data().name,
+					contact: doc.data().email,
+					details: doc.data().bio,
+					coords: await getCoordinatesFromAddress(
+						`${doc.data().address}, ${doc.data().city}, ${doc.data().state}, ${doc.data().country}`
+					),
+					}))
+				);
+
+			  console.log(data);
+
+			  setHosts(data); // Set the fetched data in state
+			} catch (error) {
+			  console.error("Error fetching hosts:", error);
+			}};
+		fetchData();}
+	, []);
 
 	const handleHostSelect = (host: HostEntry) => {
 		// Changed from Host to HostEntry

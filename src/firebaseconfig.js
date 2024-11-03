@@ -8,4 +8,6 @@ const firebaseConfig = { // process broke so hard coding and revoking api key af
 	measurementId: "G-5K6EJN1D72", // process.env.REACT_APP_MEASUREMENT_ID,
 };
 
+console.log(process.env)
+
 export default firebaseConfig;

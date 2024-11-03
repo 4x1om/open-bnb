@@ -5,6 +5,12 @@ import clsx from "clsx";
 import { useState } from "react";
 import Link from "next/link";
 
+import { signInWithGoogle, app, auth, db } from '@/userhandling.js'
+
+import firebase from 'firebase/app';
+
+import { setDoc, getDoc , doc} from "firebase/firestore";
+
 interface HostData {
 	name: string;
 	email: string;
@@ -18,7 +24,7 @@ interface HostData {
 	city: string;
 	state: string;
 	country: string;
-	photos: File[];
+	// photos: File[];
 }
 
 const initialHostData: HostData = {
@@ -34,7 +40,7 @@ const initialHostData: HostData = {
 	city: "",
 	state: "",
 	country: "United States",
-	photos: [],
+	// photos: [],
 };
 
 function TextBox({
@@ -113,9 +119,9 @@ export default function OnboardHost() {
 		if (hostData.country === "") {
 			errors.push("Country is required");
 		}
-		if (hostData.photos.length === 0) {
-			errors.push("At least one photo is required");
-		}
+		// if (hostData.photos.length === 0) {
+		// 	errors.push("At least one photo is required");
+		// }
 		setErrors(errors);
 		return errors.length === 0;
 	};
@@ -124,6 +130,9 @@ export default function OnboardHost() {
 		e.preventDefault();
 		if (validate()) {
 			console.log(hostData);
+			const path = doc(db, "posts", hostData.email);
+			setDoc(path, hostData);
+
 		}
 	};
 
@@ -242,7 +251,7 @@ export default function OnboardHost() {
 									></TextBox>
 								</div>
 							</div>
-							<div className="col-span-2">
+							{/* <div className="col-span-2">
 								<label>Photos</label>
 								<br></br>
 								<input
@@ -257,7 +266,7 @@ export default function OnboardHost() {
 										});
 									}}
 								/>
-							</div>
+							</div> */}
 						</div>
 						{errors.length > 0 && (
 							<div className="w-full my-8 flex">
@@ -271,7 +280,7 @@ export default function OnboardHost() {
 							</div>
 						)}
 						<div className="w-full my-8 flex flex-row justify-center">
-							<Link href="/afterHostSubmission">
+							{/* <Link href="/afterHostSubmission"> */}
 							<button
 								type="submit"
 								className={clsx(
@@ -280,7 +289,7 @@ export default function OnboardHost() {
 							>
 								Submit
 							</button>
-							</Link>
+							{/* </Link> */}
 						</div>
 					</div>
 				</form>
