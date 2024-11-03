@@ -1,6 +1,5 @@
 "use client";
-import LeafletMap from "@/components/LeafletMap";
-// page.tsx
+import LeafletMap from "@/components/LeafletMap"; // Import your LeafletMap component
 import React, { useState, useEffect } from "react";
 import DetailsPanel from "@/components/DetailsPanel";
 
@@ -289,7 +288,7 @@ const Page: React.FC = () => {
 	};
 
 	const handleBackToMap = () => {
-		setSelectedHost(null); // Reset the selected host to hide details panel
+		setSelectedHost(null);
 	};
 
 	return (
