@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpenBnB
 
-## Getting Started
+_This project was created in 24 hours for [BostonHacks 2024](https://www.bostonhacks.org/) held at Boston University from November 2-3, 2024. [See the submission on Devpost](https://devpost.com/software/openbnb-epignk)_
 
-First, run the development server:
+Natural disasters like the recent hurricane Milton displace millions of people around the world every year, leaving them in urgent need of shelter and support. Traditional evacuation shelters can often be overcrowded and stressful, adding to the psychological strain on evacuees.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+OpenBnB is a web platform that connects evacuees displaced by natural disasters with hosts offering temporary housing. By enabling individuals to list their homes as safe havens or find shelter in times of crisis, OpenBnB fosters a community-driven approach to compassionate and accessible housing when it's needed most. Unlike traditional shelters, OpenBnB provides a calmer, more personal environment for those in need.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technology used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Frontend: React, Typescript, Tailwind
+- Backend: Next.js, Vercel
+- Mapping: Leaflet.js
+- Database: Firebase
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project team (sorted by last name)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Hassan Dawy](https://www.linkedin.com/in/hassandawy/)
+- [Denali Schlesinger](https://www.linkedin.com/in/denalischlesinger/)
+- [Alan Xi](https://www.linkedin.com/in/alan-xi-2a3192335/)
+- [Rae Yan](https://www.linkedin.com/in/yan-rae/)
